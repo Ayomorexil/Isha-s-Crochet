@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(CartContext);
   return (
     <Link to={`/product/${product.id}`}>
       <div className="border rounded-lg p-4">
@@ -14,7 +17,13 @@ const ProductCard = ({ product }) => {
           ₦{product.price.toLocaleString()}
         </p>
 
-        <button className="mt-3 px-4 py-2 bg-[#8C0649] text-white rounded">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            addToCart(product);
+          }}
+          className="mt-3 px-4 py-2 bg-[#8C0649] text-white rounded"
+        >
           Add To Cart
         </button>
       </div>
